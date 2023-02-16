@@ -13,7 +13,6 @@ impl DasHash for &str {
         while hash < 10000000 {
             hash = hash.overflowing_mul(23).0;
         }
-        println!("{}", hash);
         let hash = hash.to_string();
         let hash: usize = hash
             .get((hash.len() / 4)..(hash.len() - hash.len() / 4))
