@@ -33,10 +33,11 @@ pub fn search(input: &str) {
         };
     }
     if (bool_print) {
-        let mut so: u64 = 0;
-        let mut eo: u64 = 79506750;
         let mut c = 0;
         for offset in &vec {
+            let mut so: u64 = 0;
+            let mut eo: u64 = 79506750;
+            // println!("{} {} {}", offset, so, eo);
             let mut clone_of = kfile.try_clone().unwrap();
             // eprintln!("{}", offset);
             let offset: u64 = offset.parse().unwrap();
@@ -46,6 +47,7 @@ pub fn search(input: &str) {
             if offset + input.len() as u64 + 30 < 79506750 {
                 eo = offset + input.len() as u64 + 30
             }
+            println!("{} {} {}", offset, so, eo);
             let mut read = vec![0u8; 0];
             clone_of.seek(SeekFrom::Start(so)).unwrap();
             clone_of.take(eo - so).read_to_end(&mut read).unwrap();
