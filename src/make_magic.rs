@@ -18,7 +18,6 @@ pub fn magic() {
     let mut line = String::new();
     buf.read_line(&mut line);
 
-    let mut v: Vec<usize> = Vec::new();
     let mut dindong: Vec<String> = Vec::new();
     let mut prev_key = 0;
     loop {
@@ -34,7 +33,6 @@ pub fn magic() {
         if prev_key == key {
             dindong.push(offset.to_string());
         } else {
-            v.push(prev_key as usize);
             let mut writer = csv::Writer::from_path(path).unwrap();
             writer.serialize(dindong);
             writer.flush();
@@ -49,13 +47,5 @@ pub fn magic() {
             Ok(_) => continue,
             Err(_) => panic!("Error"),
         }
-    }
-    v.sort();
-    let mut p = 0;
-    for x in v {
-        if x == p {
-            println!("cock");
-        }
-        p = x;
     }
 }
