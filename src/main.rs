@@ -8,6 +8,8 @@ mod lib_search;
 mod make_magic;
 mod traits;
 fn main() {
+    // magic();
+    // search("övrigt");
     let args: Vec<String> = env::args().collect();
     let arg = &args[1];
     let mut param = &String::new();
@@ -19,7 +21,7 @@ fn main() {
     }
 
     match arg.as_str() {
-        "compile" | "add" => magic(),
+        "compile" => magic(),
         "search" => search(param.as_str()),
         _ => {
             panic!("Error: could not parse the argument\n\n");

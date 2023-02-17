@@ -9,9 +9,10 @@ use encoding_rs_io::DecodeReaderBytes;
 use crate::traits::DasHash;
 
 pub fn search(input: &str) {
-    let key = input.to_lowercase().hash();
+    let item = fix_word(input);
+    let key = item.to_lowercase();
     let mut path = ".files/indexes/".to_owned();
-    path.push_str(&key.to_string());
+    path.push_str(&key);
     let mut ifile = OpenOptions::new().read(true).open(path).unwrap();
     let mut path = ".files/korpus".to_owned();
     let mut kfile = OpenOptions::new().read(true).open(path).unwrap();
@@ -58,4 +59,22 @@ pub fn search(input: &str) {
 fn bytes_to_string(s: &[u8]) -> String {
     let output: String = s.iter().map(|&c| c as char).collect();
     return output.replace("\n", " ");
+}
+// Got help from jblomlof's solution
+// got to know that å,ä,ö are the same in token. In my case I change it to unicode chars
+fn fix_word(word: &str) -> String {
+    let mut fixed = String::new();
+
+    for c in word.bytes() {
+        if c == 189 {
+            // println!("c: {}", c);
+            fixed.pop();
+            fixed.pop();
+            fixed.push(228 as char); // adding 'ä'
+        } else {
+            fixed.push(c as char);
+        }
+    }
+
+    fixed
 }
