@@ -47,7 +47,7 @@ pub fn search(input: &str) {
             if offset + input.len() as u64 + 30 < 79506750 {
                 eo = offset + input.len() as u64 + 30
             }
-            println!("{} {} {}", offset, so, eo);
+            // println!("{} {} {}", offset, so, eo);
             let mut read = vec![0u8; 0];
             clone_of.seek(SeekFrom::Start(so)).unwrap();
             clone_of.take(eo - so).read_to_end(&mut read).unwrap();
